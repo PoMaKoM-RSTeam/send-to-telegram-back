@@ -2,8 +2,8 @@ Post management system for Telegram messenger
 =================================================
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/PoMaKoM-RSTeam/send-to-telegram-front?style=for-the-badge)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/y/PoMaKoM-RSTeam/send-to-telegram-front?style=for-the-badge)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/PoMaKoM-RSTeam/send-to-telegram-back?style=for-the-badge)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/PoMaKoM-RSTeam/send-to-telegram-back?style=for-the-badge)
 ![GitHub](https://img.shields.io/github/license/PoMaKoM-RSTeam/send-to-telegram-front?style=for-the-badge)
 
 
