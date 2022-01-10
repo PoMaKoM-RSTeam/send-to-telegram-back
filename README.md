@@ -8,12 +8,12 @@
 
 ## Table of contents
 
--   [Introduction](#introduction)
--   [How to run application](#how-to-run-application)
--   [Getting help](#getting-help)
--   [Contributing](#contributing)
--   [License](#license)
--   [Authors and history](#authors-and-history)
+- [Introduction](#introduction)
+- [How to run application](#how-to-run-application)
+- [Getting help](#getting-help)
+- [Contributing](#contributing)
+- [License](#license)
+- [Authors and history](#authors-and-history)
 
 ## Introduction
 
@@ -22,15 +22,15 @@ Our team chose to create a clone of the application for managing posting to chan
 
 Node.js server with database. Serves Telegram Bot + Frontend API:
 
--   Implements REST API for all functions of the Frontend part (see above).
--   Storing in the database all the necessary information (roles, posts, messages).
-    Further, the Bot's capabilities (some functions of the front will be duplicated, as intended):
--   Maintaining a channel, creating posts, editing posts.
--   Sending postponed messages on a schedule, adding buttons, mailings, pinning, deleting posts and pins (including by timer), and more.
--   Ability to manage multiple channels, multiposting (sending messages to multiple channels).
--   Ability to assign roles to users (owner, administrator, editor, author).
--   Notification of new messages from users, the ability to reply.
--   Suggestions for posts (if the user does not have more than one role, he can also create a post, but it will go to moderation and, after approval and editing, can be published).
+- Implements REST API for all functions of the Frontend part (see above).
+- Storing in the database all the necessary information (roles, posts, messages).
+  Further, the Bot's capabilities (some functions of the front will be duplicated, as intended):
+- Maintaining a channel, creating posts, editing posts.
+- Sending postponed messages on a schedule, adding buttons, mailings, pinning, deleting posts and pins (including by timer), and more.
+- Ability to manage multiple channels, multiposting (sending messages to multiple channels).
+- Ability to assign roles to users (owner, administrator, editor, author).
+- Notification of new messages from users, the ability to reply.
+- Suggestions for posts (if the user does not have more than one role, he can also create a post, but it will go to moderation and, after approval and editing, can be published).
 
 [Front-End](https://github.com/PoMaKoM-RSTeam/send-to-telegram-front/blob/develop/README.md)
 
@@ -94,8 +94,8 @@ RS Clone is an alternate final stage#2 project in RS.SCHOOL. This is a team miss
 
 Authors
 
--   [PoMaKoM [Team Lead & Mentor]](https://github.com/PoMaKoM)
--   [alexxg0152 [Backend developer (node.js, js)]](https://github.com/alexxg0152)
--   [andrewmakarevich [Backend developer (node.js, js)]](https://github.com/andrewmakarevich)
--   [gomunkool [Frontend developer (HTML, CSS, TS, JS)]](https://github.com/gomunkool)
--   [KaterinaKachann [Frontend developer (HTML, CSS, TS, JS)]](https://github.com/KaterinaKachann)
+- [PoMaKoM [Team Lead & Mentor]](https://github.com/PoMaKoM)
+- [alexxg0152 [Backend developer (node.js, js)]](https://github.com/alexxg0152)
+- [andrewmakarevich [Backend developer (node.js, js)]](https://github.com/andrewmakarevich)
+- [gomunkool [Frontend developer (HTML, CSS, TS, JS)]](https://github.com/gomunkool)
+- [KaterinaKachann [Frontend developer (HTML, CSS, TS, JS)]](https://github.com/KaterinaKachann)
