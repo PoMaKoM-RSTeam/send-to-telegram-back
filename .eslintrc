@@ -10,7 +10,7 @@
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "prettier",
-        "airbnb", 
+        "airbnb",
         "airbnb/hooks"
     ],
     "parser": "@typescript-eslint/parser",
@@ -23,9 +23,7 @@
         "sourceType": "module",
         "project": "./tsconfig.json"
     },
-    "plugins": [
-        "@typescript-eslint"
-    ],
+    "plugins": ["@typescript-eslint"],
     "rules": {
         "no-debugger": "off",
         "no-console": 0,
