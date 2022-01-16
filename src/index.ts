@@ -1,17 +1,13 @@
-// console.log('Hello world!');
-
 import express, { Request, Response, Application } from 'express';
 // import { Telegraf } from 'telegraf';
 
-import crypto from 'crypto';
-
 import mongoose from 'mongoose';
 import Users from './models/users';
+import router from './routes/routes';
 
 const TOKEN = '5005731009:AAHze4zcztCINm4cvTYnJFGxXAn8GXzoObE';
 const app: Application = express();
 const PORT = process.env.PORT || 80;
-const userData = [];
 
 const mongooseOptions = {
   useNewUrlParser: true,
@@ -32,41 +28,15 @@ mongoose.Promise = global.Promise;
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
+app.use('/api', router);
 
 app.get('/', (req: Request, res: Response): void => {
-  res.send('Hello Typescript with Node.js!');
-});
-
-app.get('/login', (req: Request, res: Response): void => {
-  res.sendFile('C:/Users/OK/Documents/GitHub/send-to-telegram-back/src/index.html');
-});
-
-app.get('/yes', async (req: Request, res: Response) => {
-  const user = new Users({
-    userid: req.query.id,
-    first_name: req.query.first_name,
-    username: req.query.username,
-    auth_date: req.query.auth_date,
-    hash: req.query.hash,
-  });
-  await user.save();
-
-  userData.push(req.query);
-  res.redirect('/data');
-
-  // res.send(req.query);
-  res.send(new Date(Number(req.query.auth_date) * 1000).toISOString().slice(0, 19).replace('T', ' '));
-
-  const secret = crypto.createHash('sha256').update(TOKEN).digest();
-  const checkString = `auth_date=${req.query.auth_date}\nfirst_name=${req.query.first_name}\nid=${req.query.id}\nusername=${req.query.username}`;
-  const hmac = crypto.createHmac('sha256', secret).update(checkString).digest('hex');
-  console.log(hmac);
-  // res.send(console.log(hmac === req.query.hash));
+  res.send('Hello in RS-Clone application');
 });
 
 app.get('/data', async (req: Request, res: Response) => {
-  const userrrs = await Users.find({});
-  res.send(userrrs);
+  const allUsers = await Users.find({});
+  res.send(allUsers);
 });
 
 // const bot = new Telegraf(TOKEN);
@@ -107,3 +77,5 @@ app.listen(PORT, (): void => {
 // };
 
 // https.createServer(options, handleRequest).listen(80, '127.0.0.1');
+
+export default TOKEN;
