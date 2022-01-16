@@ -1,11 +1,12 @@
 import express, { Request, Response, Application } from 'express';
-// import { Telegraf } from 'telegraf';
 
 import mongoose from 'mongoose';
+import bot from './bot/bot';
 import Users from './models/users';
 import router from './routes/routes';
+import config from './config/config';
 
-const TOKEN = '5005731009:AAHze4zcztCINm4cvTYnJFGxXAn8GXzoObE';
+const { TOKEN } = config;
 const app: Application = express();
 const PORT = process.env.PORT || 80;
 
@@ -39,18 +40,10 @@ app.get('/data', async (req: Request, res: Response) => {
   res.send(allUsers);
 });
 
-// const bot = new Telegraf(TOKEN);
-// app.get('/hello', (req: Request, res: Response): void => {
-//   bot.on('text', (ctx) => {
-//     // Explicit usage
-//     // ctx.telegram.sendMessage(ctx.message.chat.id, `Hello ${ctx.state.role}`);
-
-//     // Using context shortcut
-//     ctx.reply(`Hello ${ctx.state.role}`);
-//   });
-// });
-
-// bot.launch();
+const launchBot = async () => {
+  await bot.launch();
+};
+launchBot();
 
 app.listen(PORT, (): void => {
   console.log(`Server Running here 👉 http://127.0.0.1:${PORT}`);
