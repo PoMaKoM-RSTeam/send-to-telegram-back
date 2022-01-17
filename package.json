@@ -6,6 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production ts-node ./src/index.ts",
     "dev": "ts-node-dev --respawn ./src/index.ts",
+    "demon": "nodemon src/index.ts",
     "build": "tsc",
     "prepare": "husky install",
     "prettier-fix": "prettier --write ./",
