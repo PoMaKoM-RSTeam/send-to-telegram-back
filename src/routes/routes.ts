@@ -1,6 +1,6 @@
+// TODO: ВЕРНУТЬ ЭТИ ПРАВИЛА НА МЕСТО!!!
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import express, { Request, Response } from 'express';
 import Users from '../models/users';
 import { checkTelegramAnswer, saveUserToDataBase } from '../functions/functions';
@@ -12,7 +12,7 @@ router
   .get((req: Request, res: Response) => {
     res.sendFile('index.html', { root: './src' });
   })
-  .post((req: Request, res: Response) => {});
+  .post(() => {});
 
 router.route('/yes').get(async (req: Request, res: Response) => {
   checkTelegramAnswer(req);
@@ -37,7 +37,7 @@ router.route('/no').get(async (req: Request, res: Response) => {
 
 router
   .route('/user/:userid')
-  .get((req: Request, res: Response) => {})
+  .get((_req: Request, res: Response) => {})
   .post((req: Request, res: Response) => {})
   .put((req: Request, res: Response) => {});
 

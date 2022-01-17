@@ -53,7 +53,7 @@
     "telegraf": "^4.6.0"
   },
   "lint-staged": {
-    "*.ts": "eslint --cache --fix",
+    "*.ts": "npm run lint",
     "*.{js,ts,md,json,yml}": "prettier --write"
   },
   "engines": {

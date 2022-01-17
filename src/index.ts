@@ -4,9 +4,8 @@ import mongoose from 'mongoose';
 import bot from './bot/bot';
 import Users from './models/users';
 import router from './routes/routes';
-import config from './config/config';
+import TOKEN from './config/config';
 
-const { TOKEN } = config;
 const app: Application = express();
 const PORT = process.env.PORT || 80;
 

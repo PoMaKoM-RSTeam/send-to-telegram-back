@@ -1,8 +1,8 @@
 import crypto from 'crypto';
-import TOKEN from '../index';
+import config from '../config/config';
 
 export function checkTelegramAnswer(req) {
-  const secret = crypto.createHash('sha256').update(TOKEN).digest();
+  const secret = crypto.createHash('sha256').update(config.TOKEN).digest();
   const checkString = `auth_date=${req.query.auth_date}\nfirst_name=${req.query.first_name}\nid=${req.query.id}\nusername=${req.query.username}`;
   const hmac = crypto.createHmac('sha256', secret).update(checkString).digest('hex');
   return hmac === req.query.hash;
