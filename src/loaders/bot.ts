@@ -1,5 +1,6 @@
 import { Telegraf, Markup } from 'telegraf';
 import { generateUpdateMiddleware } from 'telegraf-middleware-console-time';
+import models from '../models/models';
 import config from '../config/config';
 
 export default async () => {
@@ -18,19 +19,27 @@ export default async () => {
     ctx.leaveChat();
   });
 
-  bot.command('actions', async (ctx) => ctx.reply(
-    `Hello ${ctx.update.message.from.first_name}, hope you enjoy our application!`,
-    Markup.keyboard([
-      ['🤖 Bots', '💻 Channels'],
-      ['✒️ Posts', '📧 Messages'],
-      ['👥 Users', '📅 Schedule', '📊 Stats'],
-    ])
-      .oneTime()
-      .resize(),
-  ));
+  bot.command('actions', async (ctx) =>
+    ctx.reply(
+      `Hello ${ctx.update.message.from.first_name}, hope you enjoy our application!`,
+      Markup.keyboard([
+        ['🤖 Bots', '💻 Channels'],
+        ['✒️ Posts', '📧 Messages'],
+        ['👥 Users', '📅 Schedule', '📊 Stats'],
+      ])
+        .oneTime()
+        .resize()
+    )
+  );
 
-  bot.hears('🔍 Search', (ctx) => ctx.reply('Yay!'));
-  bot.hears('📢 Ads', (ctx) => ctx.reply('Free hugs. Call now!'));
+  bot.command('users', async (ctx) => {
+    const allUsers = await models.userModel.find({});
+    console.log(allUsers);
+    return ctx.reply(allUsers.join(''));
+  });
+
+  bot.hears('🤖 Bots', (ctx) => ctx.reply('Hello!'));
+  bot.hears('👥 Users', (ctx) => ctx.reply('User data!'));
 
   bot.on('text', (ctx) => {
     console.log(ctx);

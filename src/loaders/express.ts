@@ -1,8 +1,6 @@
-import {
-  Request, Response, Application, urlencoded,
-} from 'express';
+import { Request, Response, Application, urlencoded } from 'express';
 
-import Users from '../models/models';
+import models from '../models/models';
 import router from '../api/api';
 
 export default async ({ app }: { app: Application }) => {
@@ -15,7 +13,7 @@ export default async ({ app }: { app: Application }) => {
   });
 
   app.get('/data', async (req: Request, res: Response) => {
-    const allUsers = await Users.find({});
+    const allUsers = await models.userModel.find({});
     res.send(allUsers);
   });
 

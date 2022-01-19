@@ -10,7 +10,7 @@ export function checkTelegramAnswer(req) {
 
 export function saveUserToDataBase(req, Users) {
   const user = new Users({
-    userid: req.query.id,
+    id: req.query.id,
     first_name: req.query.first_name,
     username: req.query.username,
     auth_date: req.query.auth_date,

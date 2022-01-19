@@ -2,33 +2,26 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-unused-vars */
 import express, { Request, Response } from 'express';
-import Users from '../models/models';
+import * as models from '../models/models';
 import { checkTelegramAnswer, saveUserToDataBase } from '../services/services';
 
 const router = express.Router();
 
 router
-  .route('/') // /api login
+  .route('/')
   .get((req: Request, res: Response) => {
     res.sendFile('index.html', { root: './src' });
   })
   .post(() => {});
 
 router.route('/yes').get(async (req: Request, res: Response) => {
-  checkTelegramAnswer(req);
-  if (!checkTelegramAnswer(req)) {
+  if (checkTelegramAnswer(req)) {
     res.redirect('/no');
   }
-  const user = saveUserToDataBase(req, Users);
+
+  const user = saveUserToDataBase(req, models.default.userModel);
   await user.save();
   res.redirect('/data');
-
-  // res.send(req.query);
-  // res
-  //   .send(new Date(Number(req.query.auth_date) * 1000)
-  //     .toISOString()
-  //     .slice(0, 19)
-  //     .replace('T', ' '));
 });
 
 router.route('/no').get(async (req: Request, res: Response) => {
