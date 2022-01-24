@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-unused-vars */
 import express, { Request, Response } from 'express';
-import Users from '../models/users';
-import { checkTelegramAnswer, saveUserToDataBase } from '../functions/functions';
+import Users from '../models/models';
+import { checkTelegramAnswer, saveUserToDataBase } from '../services/services';
 
 const router = express.Router();
 
