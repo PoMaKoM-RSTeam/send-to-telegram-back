@@ -2,8 +2,14 @@ import crypto from 'crypto';
 import models from '../models/models';
 import config from '../config/config';
 import ApiError from '../apiError/apiError';
+import RoleService from './roleService';
 
 class userService {
+  static async findUser(id: number) {
+    const user = await models.userModel.findOne({ id });
+    return user;
+  }
+
   static async registrateUser(
     id: number,
     firstName: string,
@@ -26,6 +32,14 @@ class userService {
       hash,
     });
     return { message: 'User created successfully' };
+  }
+
+  static async checkUserRole(id: number, role: string) {
+    const user = await this.findUser(id);
+    const userRole = await RoleService.findRole(user.id);
+    if (userRole.name !== role) {
+      throw ApiError.forbidden('Access denied');
+    }
   }
 
   static checkUserData(id: number, firstName: string, username: string, authDate: Date, hash: string) {
