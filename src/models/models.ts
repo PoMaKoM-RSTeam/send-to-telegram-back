@@ -16,6 +16,7 @@ const userSchema = new Schema(
 const botSchema = new Schema(
   {
     id: { type: Number, required: true },
+    // user: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
@@ -28,11 +29,13 @@ const botSchema = new Schema(
 const channelSchema = new Schema(
   {
     id: { type: Number, required: true },
-    bot: { type: Schema.Types.ObjectId, ref: 'Bot' },
+    bot: { type: String, required: true },
+    // bot: { type: Schema.Types.ObjectId, ref: 'Bot' },
     username: { type: String, required: true },
     title: { type: String, required: true },
     invite_link: { type: String, required: true },
-    photo: { type: String, validate: /\.(png|jpg|jpeg|webm)$/ },
+    // photo: { type: String, validate: /\.(png|jpg|jpeg|webm)$/ },
+    photo: { type: String, required: false },
   },
   { timestamps: true }
 );
@@ -40,7 +43,8 @@ const channelSchema = new Schema(
 const postSchema = new Schema(
   {
     id: { type: Number, required: true },
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    // user: { type: Schema.Types.ObjectId, ref: 'User' },
+    bot_id: { type: Number, required: true },
     channel: { type: Schema.Types.ObjectId, ref: 'Channel' },
     date: { type: Date, required: true },
     text: { type: String, required: true },
@@ -91,7 +95,7 @@ const permissionSchema: Schema = new Schema(
 
 const userModel = model('User', userSchema);
 const botModel = model('Bot', botSchema);
-const channelModel = model('Model', channelSchema);
+const channelModel = model('Channel', channelSchema);
 const postModel = model('Post', postSchema);
 const chatModel = model('Chat', chatSchema);
 const messageModel = model('Message', messageSchema);

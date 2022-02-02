@@ -1,7 +1,7 @@
 import { Request, Response, Application, urlencoded } from 'express';
 
 import models from '../models/models';
-import router from '../api/api';
+import router from '../routes/index';
 import errorMiddleware from '../middleware/errorMiddleware';
 
 export default async ({ app }: { app: Application }) => {
