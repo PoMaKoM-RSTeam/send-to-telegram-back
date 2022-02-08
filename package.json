@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production ts-node ./src/index.ts",
-    "dev": "cross-env PORT=3030 ts-node-dev --respawn ./src/index.ts",
+    "dev": "ts-node-dev --respawn ./src/index.ts",
     "build": "tsc",
     "prepare": "husky install",
     "prettier-fix": "prettier --write ./",
