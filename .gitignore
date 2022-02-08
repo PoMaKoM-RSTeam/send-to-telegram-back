@@ -22,6 +22,7 @@
 # Logs
 logs
 *.log
+log.txt
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -121,6 +122,10 @@ dist
 
 # FuseBox cache
 .fusebox/
+
+
+# DynamoDB Local files
+filedb
 
 # DynamoDB Local files
 .dynamodb/
@@ -241,3 +246,7 @@ out/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,linux,node,react
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
+node_modules
+
+# sesiions
+my_session

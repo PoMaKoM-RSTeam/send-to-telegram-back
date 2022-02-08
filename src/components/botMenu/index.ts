@@ -12,10 +12,10 @@ import {
   showAllUserChannelsFromDataBase,
 } from '../../services/services';
 import models from '../../models/models';
-import config from '../../config/config';
+import { config } from '../../config/config';
 import ChannelService from '../../service/channelService';
 
-const bot = new Bot(config.TOKEN);
+const bot = new Bot(config.BOT_TOKEN);
 // TEST
 bot.on('my_chat_member', async (ctx) => {
   try {
