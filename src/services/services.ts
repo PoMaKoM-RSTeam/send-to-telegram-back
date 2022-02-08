@@ -22,4 +22,92 @@ export function saveUserToDataBase(req, Users) {
   return user;
 }
 
-export default { checkTelegramAnswer, saveUserToDataBase };
+export function saveBotToDataBase(ctx, Users, text) {
+  const bot = new Users({
+    id: ctx.me.id,
+    user: ctx.update.message.from.id,
+    username: ctx.update.message.from.username,
+    first_name: ctx.me.first_name,
+    last_name: ctx.me.first_name,
+    token: text,
+  });
+  return bot;
+}
+
+export async function editBotInDataBase(ctx, Users, botName, newBotName) {
+  const editBot = await Users.findOneAndUpdate(
+    { first_name: botName },
+    {
+      // first_name: ctx.me.first_name,
+      last_name: ctx.me.last_name,
+      username: ctx.me.username,
+      token: newBotName,
+      upsert: true,
+      useFindAndModify: false,
+    }
+  );
+  return editBot;
+}
+
+export async function showAllUserBotsFromDataBase(ctx, Users) {
+  const showAllUserBot = await Users.find({ user: ctx.callbackQuery.from.id });
+  return showAllUserBot.join(' ');
+}
+
+export async function deleteBotFromDataBase(ctx, Users, text) {
+  const deleteBot = await Users.deleteOne({ first_name: text });
+  return deleteBot;
+}
+
+/// ///////////////////////////
+export function saveChannelToDataBase(ctx, Users, channel) {
+  const addChannel = new Users({
+    id: channel.id,
+    bot: String(ctx.update.message.from.id),
+    username: channel.username,
+    title: channel.title,
+    invite_link: ctx.me.first_name,
+    photo: channel.photo.big_file_id,
+  });
+  return addChannel;
+}
+
+export async function editChannelInDataBase(ctx, Users, channelName, newСhannelName) {
+  const editChannel = await Users.findOneAndUpdate(
+    { title: channelName },
+    {
+      // id: channel.id,
+      // bot: String(ctx.update.message.from.id),
+      // username: channel.username,
+      title: newСhannelName,
+      // invite_link: ctx.me.first_name,
+      // photo: channel.photo.big_file_id,
+      upsert: true,
+      useFindAndModify: false,
+    }
+  );
+  return editChannel;
+}
+
+export async function showAllUserChannelsFromDataBase(ctx, Users) {
+  const showAllChannels = await Users.find({ bot: ctx.update.callback_query.from.id });
+  return showAllChannels.join(' ');
+}
+
+export async function deleteChannelFromDataBase(ctx, Users, text) {
+  const deleteChannel = await Users.deleteOne({ title: text });
+  return deleteChannel;
+}
+
+export default {
+  checkTelegramAnswer,
+  saveUserToDataBase,
+  saveBotToDataBase,
+  editBotInDataBase,
+  showAllUserBotsFromDataBase,
+  deleteBotFromDataBase,
+  saveChannelToDataBase,
+  editChannelInDataBase,
+  showAllUserChannelsFromDataBase,
+  deleteChannelFromDataBase,
+};
