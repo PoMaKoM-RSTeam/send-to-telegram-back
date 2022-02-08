@@ -10,7 +10,7 @@ class userService {
     return user;
   }
 
-  static async registrateUser(
+  static async authUser(
     id: number,
     firstName: string,
     lastName: string,
@@ -21,17 +21,18 @@ class userService {
     if (!this.checkUserData(id, firstName, username, authDate, hash)) {
       throw ApiError.badRequest("Incorrect user's data");
     }
-    const user = await models.userModel.findOne({ id });
-    if (user) throw ApiError.badRequest('User is already exists');
-    await models.userModel.create({
-      id,
-      first_name: firstName,
-      last_name: lastName,
-      username,
-      auth_date: authDate,
-      hash,
-    });
-    return { message: 'User created successfully' };
+    const user = await models.userModel.findOneAndUpdate({ id }, { firstName, lastName, username, hash });
+    if (!user) {
+      await models.userModel.create({
+        id,
+        first_name: firstName,
+        last_name: lastName,
+        username,
+        auth_date: authDate,
+        hash,
+      });
+    }
+    return { message: 'User authentificate successfully' };
   }
 
   static async checkUserRole(id: number, role: string) {
@@ -43,6 +44,9 @@ class userService {
   }
 
   static checkUserData(id: number, firstName: string, username: string, authDate: Date, hash: string) {
+    if (!id || !firstName || !username || !authDate || !hash) {
+      throw ApiError.badRequest('User data is not full enough');
+    }
     const secret = crypto.createHash('sha256').update(config.TOKEN).digest();
     const checkString = `auth_date=${authDate}\nfirst_name=${firstName}\nid=${id}\nusername=${username}`;
     const hmac = crypto.createHmac('sha256', secret).update(checkString).digest('hex');
