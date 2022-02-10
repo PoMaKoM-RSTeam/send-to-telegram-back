@@ -50,7 +50,9 @@ export async function editBotInDataBase(ctx, Users, botName, newBotName) {
 }
 
 export async function showAllUserBotsFromDataBase(ctx, Users) {
+  console.log(ctx.callbackQuery.from.id);
   const showAllUserBot = await Users.find({ user: ctx.callbackQuery.from.id });
+  console.log(showAllUserBot);
   return showAllUserBot.join(' ');
 }
 

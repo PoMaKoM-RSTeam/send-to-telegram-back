@@ -1,11 +1,16 @@
 import { Schema, model } from 'mongoose';
+import {
+  IChannelModel,
+  IPostModel,
+  IRoleModel,
+  IUserModel,
+  IUsersChannelsRolesModel,
+} from '../interfaces/modelsInterfaces';
 
-const userSchema = new Schema(
+const userSchema = new Schema<IUserModel>(
   {
     id: { type: Number, required: true },
-    role: { type: Schema.Types.ObjectId, ref: 'Role' },
     first_name: { type: String, required: true },
-    last_name: { type: String, required: false },
     username: { type: String, required: true },
     auth_date: { type: Date, required: true },
     hash: { type: String, required: true },
@@ -16,8 +21,7 @@ const userSchema = new Schema(
 const botSchema = new Schema(
   {
     id: { type: Number, required: true },
-    // user: { type: String, required: true },
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
     username: { type: String, required: true },
@@ -26,26 +30,27 @@ const botSchema = new Schema(
   { timestamps: true }
 );
 
-const channelSchema = new Schema(
+const channelSchema = new Schema<IChannelModel>(
   {
     id: { type: Number, required: true },
-    bot: { type: String, required: true },
-    // bot: { type: Schema.Types.ObjectId, ref: 'Bot' },
-    username: { type: String, required: true },
-    title: { type: String, required: true },
-    invite_link: { type: String, required: true },
-    // photo: { type: String, validate: /\.(png|jpg|jpeg|webm)$/ },
-    photo: { type: String, required: false },
+    username: { type: String },
+    title: { type: String },
+    invite_link: { type: String },
+    photo: { type: String },
   },
   { timestamps: true }
 );
+const usersChannelsRoles = new Schema<IUsersChannelsRolesModel>({
+  userId: { type: Schema.Types.ObjectId, ref: 'User' },
+  roleId: { type: Schema.Types.ObjectId, ref: 'Role' },
+  channelId: { type: Schema.Types.ObjectId, ref: 'Channel' },
+});
 
-const postSchema = new Schema(
+const postSchema = new Schema<IPostModel>(
   {
     id: { type: Number, required: true },
-    // user: { type: Schema.Types.ObjectId, ref: 'User' },
-    bot_id: { type: Number, required: true },
-    channel: { type: Schema.Types.ObjectId, ref: 'Channel' },
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    channelId: { type: Schema.Types.ObjectId, ref: 'Channel' },
     date: { type: Date, required: true },
     text: { type: String, required: true },
     photo: { type: String, validate: /\.(png|jpg|jpeg|webm)$/ },
@@ -56,7 +61,7 @@ const postSchema = new Schema(
 const chatSchema = new Schema(
   {
     id: { type: Number, required: true },
-    bot: { type: Schema.Types.ObjectId, ref: 'Bot' },
+    botId: { type: Schema.Types.ObjectId, ref: 'Bot' },
     surname: { type: String, required: true },
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
@@ -76,19 +81,13 @@ const messageSchema = new Schema(
   { timestamps: true }
 );
 
-const roleSchema = new Schema(
+const roleSchema = new Schema<IRoleModel>(
   {
     name: { type: String, required: true },
-    permission: { type: Schema.Types.ObjectId, ref: 'Permission' },
-  },
-  { timestamps: true }
-);
-
-const permissionSchema: Schema = new Schema(
-  {
-    editOtherProfiles: { type: String, required: true },
-    addChannels: { type: String, required: true },
-    changeRoles: { type: String, required: true },
+    can_change_info: { type: Boolean, required: true },
+    can_post_messages: { type: Boolean, required: true },
+    can_edit_messages: { type: Boolean, required: true },
+    can_delete_messages: { type: Boolean, required: true },
   },
   { timestamps: true }
 );
@@ -100,7 +99,7 @@ const postModel = model('Post', postSchema);
 const chatModel = model('Chat', chatSchema);
 const messageModel = model('Message', messageSchema);
 const roleModel = model('Role', roleSchema);
-const permissionModel = model('Permission', permissionSchema);
+const usersChannelsRolesModel = model('UsersChannelRoles', usersChannelsRoles);
 
 export default {
   userModel,
@@ -110,5 +109,5 @@ export default {
   chatModel,
   messageModel,
   roleModel,
-  permissionModel,
+  usersChannelsRolesModel,
 };

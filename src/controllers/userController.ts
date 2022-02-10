@@ -15,8 +15,8 @@ class UserController {
 
   static checkUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { id, firstName, lastName, username, authDate, hash } = req.body;
-      await userService.authUser(id, firstName, lastName, username, authDate, hash);
+      const { id, firstName, username, authDate, hash } = req.body;
+      await userService.authUser(id, firstName, username, authDate, hash);
       return res.json({ message: 'user checked successfully' });
     } catch (e) {
       next(e);
