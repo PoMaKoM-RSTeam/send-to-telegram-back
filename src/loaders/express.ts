@@ -1,4 +1,4 @@
-import { Request, Response, Application, urlencoded } from 'express';
+import { json, Request, Response, Application, urlencoded } from 'express';
 
 import models from '../models/models';
 import router from '../routes/index';
@@ -6,6 +6,7 @@ import errorMiddleware from '../middleware/errorMiddleware';
 
 export default async ({ app }: { app: Application }) => {
   app.set('view engine', 'ejs');
+  app.use(json());
   app.use(urlencoded({ extended: true }));
   app.use('/api', router);
   app.use(errorMiddleware);

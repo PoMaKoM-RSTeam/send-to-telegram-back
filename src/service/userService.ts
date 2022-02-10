@@ -10,23 +10,15 @@ class userService {
     return user;
   }
 
-  static async authUser(
-    id: number,
-    firstName: string,
-    lastName: string,
-    username: string,
-    authDate: Date,
-    hash: string
-  ) {
+  static async authUser(id: number, firstName: string, username: string, authDate: Date, hash: string) {
     if (!this.checkUserData(id, firstName, username, authDate, hash)) {
       throw ApiError.badRequest("Incorrect user's data");
     }
-    const user = await models.userModel.findOneAndUpdate({ id }, { firstName, lastName, username, hash });
+    const user = await models.userModel.findOneAndUpdate({ id }, { firstName, username, hash });
     if (!user) {
       await models.userModel.create({
         id,
         first_name: firstName,
-        last_name: lastName,
         username,
         auth_date: authDate,
         hash,
@@ -37,7 +29,7 @@ class userService {
 
   static async checkUserRole(id: number, role: string) {
     const user = await this.findUser(id);
-    const userRole = await RoleService.findRole(user.id);
+    const userRole = await RoleService.findRole('id', user.id);
     if (userRole.name !== role) {
       throw ApiError.forbidden('Access denied');
     }

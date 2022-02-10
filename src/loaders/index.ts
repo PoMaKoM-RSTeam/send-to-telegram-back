@@ -10,7 +10,6 @@ export default async ({ expressApp }) => {
   await expressLoader({ app: expressApp });
   console.log('⏩ Express Initialized');
   // Bot start
-  await botLoader();
-  console.log('🤖 Bot Initialized');
+  botLoader().then(() => console.log('🤖 Bot Initialized'));
   console.log(`👆 All success. ${new Date(Number(new Date().getTime())).toISOString().slice(0, 19).replace('T', ' ')}`);
 };
