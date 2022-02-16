@@ -29,6 +29,8 @@ export interface IRoleModel {
   can_edit_messages: boolean;
   can_delete_messages: boolean;
   can_give_channel_access: boolean;
+  can_delete_channel_member: boolean;
+  can_edit_channel_member: boolean;
   can_delete_channel: boolean;
 }
 export interface IUsersChannelsRolesModel {

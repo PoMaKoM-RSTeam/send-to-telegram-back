@@ -89,6 +89,8 @@ const roleSchema = new Schema<IRoleModel>(
     can_edit_messages: { type: Boolean, required: true },
     can_delete_messages: { type: Boolean, required: true },
     can_give_channel_access: { type: Boolean, required: true },
+    can_delete_channel_member: { type: Boolean, required: true },
+    can_edit_channel_member: { type: Boolean, required: true },
     can_delete_channel: { type: Boolean, required: true },
   },
   { timestamps: true }

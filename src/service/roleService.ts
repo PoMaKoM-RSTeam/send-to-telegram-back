@@ -13,6 +13,8 @@ class RoleService {
     canEditMessages: boolean,
     canDeleteMessages: boolean,
     canGiveChannelAccess: boolean,
+    canDeleteChannelMember: boolean,
+    canEditChannelMember: boolean,
     canDeleteChannel: boolean
   ) {
     await models.roleModel.create({
@@ -22,6 +24,8 @@ class RoleService {
       can_edit_messages: canEditMessages,
       can_delete_messages: canDeleteMessages,
       can_give_channel_access: canGiveChannelAccess,
+      can_delete_channel_member: canDeleteChannelMember,
+      can_edit_channel_member: canEditChannelMember,
       can_delete_channel: canDeleteChannel,
     });
   }
@@ -29,7 +33,7 @@ class RoleService {
   static async createBaseRoles() {
     const adminRole = await this.findRole('name', 'administrator');
     if (!adminRole) {
-      this.createRole('administrator', true, true, true, true, true, true);
+      this.createRole('administrator', true, true, true, true, true, true, true, true);
     } else {
       await adminRole.updateOne({
         can_change_info: true,
@@ -37,6 +41,8 @@ class RoleService {
         can_edit_messages: true,
         can_delete_messages: true,
         can_give_channel_access: true,
+        can_delete_channel_member: true,
+        can_edit_channel_member: true,
         can_delete_channel: true,
       });
     }
