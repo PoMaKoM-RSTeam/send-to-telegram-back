@@ -41,6 +41,7 @@ class ChannelService {
       throw ApiError.badRequest('Bot must be a channel administrator and have all permissions');
     }
     if (!channelOwner) {
+      ChannelBot.leaveChannel(channelInfo.id);
       throw ApiError.badRequest('Channel owner arent registered yet');
     }
     let channel = await this.findChannel(channelInfo.id);
