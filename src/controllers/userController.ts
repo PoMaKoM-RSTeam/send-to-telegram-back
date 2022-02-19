@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import userService from '../service/userService';
+import userService from '../services/userService';
 
 class UserController {
   // static getUsers = async (req: Request, res: Response, next: NextFunction) => {
@@ -15,8 +15,8 @@ class UserController {
 
   static checkUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { id, firstName, username, authDate, hash } = req.body;
-      await userService.authUser(id, firstName, username, authDate, hash);
+      const userObj = req.body;
+      await userService.authUser(userObj);
       return res.json({ message: 'user checked successfully' });
     } catch (e) {
       next(e);

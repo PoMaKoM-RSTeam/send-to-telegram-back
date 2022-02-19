@@ -13,7 +13,7 @@ const userSchema = new Schema<IUserModel>(
     // role: { type: Schema.Types.ObjectId, ref: 'Role' },
     first_name: { type: String, required: true },
     username: { type: String, required: true },
-    auth_date: { type: Date, required: true },
+    auth_date: { type: String, required: true },
     hash: { type: String, required: true },
   },
   { timestamps: true }
@@ -54,7 +54,7 @@ const postSchema = new Schema<IPostModel>(
   {
     id: { type: Number, required: false },
     channelId: { type: Number, required: true },
-    date: { type: Date, required: false },
+    date: { type: String, required: false },
     text: { type: Object, required: false },
     attachments: { type: [postAttachment], required: false },
   },

@@ -1,13 +1,8 @@
 import { Schema } from 'mongoose';
+import { TelegramLoginPayload } from 'node-telegram-login';
 import { AttachAnimation, AttachAudio, AttachDocument, AttachPhoto, AttachVideo, PostCaption } from '../bot/types/post';
 
-export interface IUserModel {
-  id: number;
-  first_name: string;
-  username: string;
-  auth_date: Date;
-  hash: string;
-}
+export type IUserModel = TelegramLoginPayload;
 export interface IChannelModel {
   id: number;
   username: string;
@@ -19,7 +14,7 @@ export interface IPostModel {
   id: number;
   userId: Schema.Types.ObjectId;
   channelId: Schema.Types.ObjectId;
-  date?: Date;
+  date?: string;
   text?: PostCaption;
   attachments?: Array<AttachPhoto | AttachVideo | AttachAnimation | AttachAudio | AttachDocument>;
 }
