@@ -9,7 +9,7 @@ export const config = cleanEnv(process.env, {
   }),
   DATABASE_URL: str({ devDefault: 'mongodb+srv://Admin:vZ7vg35CC34dVFZ@users.d1obt.mongodb.net/Users' }),
   SERVER_PORT: num({
-    default: 5050,
+    default: 80,
   }),
   BOT_SERVER_HOST: str({
     default: '0.0.0.0',

@@ -1,6 +1,6 @@
 import { Chat, ChatMemberAdministrator, Update } from 'grammy/out/platform.node';
 import ApiError from '../apiError/apiError';
-import ChannelBot from '../components/botMenu/channelBot';
+import { bot } from '../bot';
 import models from '../models/models';
 import RoleService from './roleService';
 import userService from './userService';
@@ -19,8 +19,8 @@ class ChannelService {
   static async addChannel(updateObj: Update): Promise<void> {
     const channelOwner = await userService.findUser(updateObj.my_chat_member.from.id);
     const addedBot = updateObj.my_chat_member.new_chat_member as ChatMemberAdministrator;
-    const channelInfo = (await ChannelBot.getChatInfo(updateObj)) as Chat.SupergroupGetChat;
-    const botInfo = await ChannelBot.getBotInfo();
+    const channelInfo = (await bot.api.getChat(updateObj.my_chat_member.chat.id)) as Chat.SupergroupGetChat;
+    const botInfo = await bot.api.getMe();
     if (updateObj.my_chat_member.chat.type !== 'channel') {
       return;
     }
@@ -172,7 +172,9 @@ class ChannelService {
       userId: newMember._id,
     });
     return {
-      message: `The role "${newMemberRole.name}" added to the user ${newMember.username} in the channel ${channel.username}`,
+      message: `The role "${newMemberRole.name}" 
+      added to the user ${newMember.username} 
+      in the channel ${channel.username}`,
     };
   }
 
@@ -222,10 +224,12 @@ class ChannelService {
       throw ApiError.badRequest('Such user does not exists');
     }
     const userChannelConnections = await models.usersChannelsRolesModel.find({ userId: user._id });
-    const channels = await Promise.all(userChannelConnections.map(async (channelConnection) => {
-      const channel = await this.findChannel(`${channelConnection.channelId}`);
-      return channel;
-    }));
+    const channels = await Promise.all(
+      userChannelConnections.map(async (channelConnection) => {
+        const channel = await this.findChannel(`${channelConnection.channelId}`);
+        return channel;
+      })
+    );
     return channels;
   }
 
@@ -261,7 +265,7 @@ class ChannelService {
     if (!userRole.can_delete_channel) {
       throw ApiError.forbidden('This user have no access to delete this channel');
     }
-    await ChannelBot.leaveChannel(channelId);
+    await bot.api.leaveChat(channelId);
     await this.deleteChannel(channelId);
     return { message: 'Channel deleted directly by user' };
   }

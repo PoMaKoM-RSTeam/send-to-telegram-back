@@ -4,7 +4,7 @@ import { MyContext } from '../../types/context';
 
 export async function savePostToDataBase(ctx: MyContext) {
   const post = new PostModel({
-    channel: await ctx.session.postDraft.channel,
+    channelId: await ctx.session.postDraft.channel,
     text: await ctx.session.postDraft.text,
     attachments: await ctx.session.postDraft.attachments,
   }).save();

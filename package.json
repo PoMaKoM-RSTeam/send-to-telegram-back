@@ -66,6 +66,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "mongoose": "^6.1.6",
+    "node-telegram-login": "^2.0.0",
     "telegram": "^2.5.0",
     "tslog": "^3.3.2"
   },

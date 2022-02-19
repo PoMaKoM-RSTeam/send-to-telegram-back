@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { IUserModel } from '../interfaces/modelsInterfaces';
-import ChannelService from '../service/channelService';
+import ChannelService from '../services/channelService';
 
 class ChannelController {
   static async deleteChannel(req: Request, res: Response, next: NextFunction) {
@@ -46,7 +46,6 @@ class ChannelController {
       return next(e);
     }
   }
-
 
   static async getMemberChannels(req: Request, res: Response, next: NextFunction) {
     try {
