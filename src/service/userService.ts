@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import models from '../models/models';
-import config from '../config/config';
+import { config } from '../config/config';
 import ApiError from '../apiError/apiError';
 import RoleService from './roleService';
 
@@ -39,7 +39,7 @@ class userService {
     if (!id || !firstName || !username || !authDate || !hash) {
       throw ApiError.badRequest('User data is not full enough');
     }
-    const secret = crypto.createHash('sha256').update(config.TOKEN).digest();
+    const secret = crypto.createHash('sha256').update(config.BOT_TOKEN).digest();
     const checkString = `auth_date=${authDate}\nfirst_name=${firstName}\nid=${id}\nusername=${username}`;
     const hmac = crypto.createHmac('sha256', secret).update(checkString).digest('hex');
     return hmac === hash;

@@ -1,4 +1,5 @@
 import { Schema } from 'mongoose';
+import { AttachAnimation, AttachAudio, AttachDocument, AttachPhoto, AttachVideo, PostCaption } from '../bot/types/post';
 
 export interface IUserModel {
   id: number;
@@ -19,9 +20,9 @@ export interface IPostModel {
   id: number;
   userId: Schema.Types.ObjectId;
   channelId: Schema.Types.ObjectId;
-  date: Date;
-  text: string;
-  photo: string;
+  date?: Date;
+  text?: PostCaption;
+  attachments?: Array<AttachPhoto | AttachVideo | AttachAnimation | AttachAudio | AttachDocument>;
 }
 export interface IRoleModel {
   name: string;
