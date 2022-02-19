@@ -3,7 +3,6 @@ import { AttachAnimation, AttachAudio, AttachDocument, AttachPhoto, AttachVideo,
 
 export interface IUserModel {
   id: number;
-  role: number;
   first_name: string;
   username: string;
   auth_date: Date;
@@ -30,6 +29,10 @@ export interface IRoleModel {
   can_post_messages: boolean;
   can_edit_messages: boolean;
   can_delete_messages: boolean;
+  can_give_channel_access: boolean;
+  can_delete_channel_member: boolean;
+  can_edit_channel_member: boolean;
+  can_delete_channel: boolean;
 }
 export interface IUsersChannelsRolesModel {
   userId: Schema.Types.ObjectId;

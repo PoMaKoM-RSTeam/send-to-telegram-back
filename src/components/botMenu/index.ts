@@ -18,14 +18,7 @@ import ChannelService from '../../service/channelService';
 const bot = new Bot(config.BOT_TOKEN);
 // TEST
 bot.on('my_chat_member', async (ctx) => {
-  try {
-    await ChannelService.addChannel(ctx.update);
-  } catch (e) {
-    console.log(e);
-  }
-});
-bot.catch((err) => {
-  console.log(err);
+  await ChannelService.addChannel(ctx.update);
 });
 // -----
 type MyContext = BaseContext;
@@ -207,8 +200,10 @@ bot.use(question.middleware());
 bot.use(questionForChangeBotName.middleware());
 bot.use(questionForChangeChannelName.middleware());
 
-bot.catch((error) => {
-  console.log('bot error', error);
+bot.catch(async (error) => {
+  if (error.ctx.update.my_chat_member.new_chat_member.status === 'left') {
+    await ChannelService.deleteChannel(error.ctx.update.my_chat_member.chat.id);
+  }
 });
 
 export default bot;

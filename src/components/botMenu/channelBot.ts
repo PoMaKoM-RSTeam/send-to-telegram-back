@@ -11,6 +11,10 @@ class ChannelBot {
     const botInfo = await bot.api.getMe();
     return botInfo;
   }
+
+  static async leaveChannel(channelId: number) {
+    await bot.api.leaveChat(channelId);
+  }
 }
 
 export default ChannelBot;
