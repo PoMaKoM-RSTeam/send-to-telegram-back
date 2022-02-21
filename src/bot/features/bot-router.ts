@@ -1,7 +1,9 @@
 import { Router } from '@grammyjs/router';
 import { findLast } from 'lodash';
 import { getInitialPostInstance } from '../helpers/post-helpers';
+import { menuMiddleware } from '../menus';
 import { saveMenu } from '../menus/keyboards/post-action-keyboard';
+import { hourKeyboard, minuteKeyboard } from '../menus/keyboards/select-date.keyboard';
 import { MyContext } from '../types/context';
 
 // Init router
@@ -37,7 +39,6 @@ router.route('add_new_post', async (ctx) => {
       post.attachments.push({ type: 'document', mediaId: ctx.message.document.file_id });
     }
 
-    // post.text.caption = ctx.message.text;  \\ ВОТ ЭТО ДЕЛАЛО ПОЛЕ ПУСТЫМ ПОСЛЕ ДОБАВЛЕНИЯ КАРТИНКИ => НЕ РАБОТАЛО
     post.text.caption_entities = ctx.message.caption_entities;
   }
 
@@ -48,7 +49,38 @@ router.route('add_new_post', async (ctx) => {
   ctx.reply(`Post updated: ${JSON.stringify(post)}`, {
     reply_markup: saveMenu,
   });
-  // saveMenuMiddleware.replyToContext(ctx, '/channels/');
   ctx.session.postDraft = post;
   return post;
+});
+
+router.route('hour', async (ctx) => {
+  await ctx.reply('Got it! Now, send me the hour!', {
+    reply_markup: {
+      one_time_keyboard: true,
+      keyboard: hourKeyboard.build(),
+    },
+  });
+  ctx.session.postDraft.sendDate.push(ctx.message.text);
+  ctx.session.step = 'minute';
+  return true;
+});
+
+router.route('minute', async (ctx) => {
+  await ctx.reply('Got it! Now, send me the minute!', {
+    reply_markup: {
+      one_time_keyboard: true,
+      keyboard: minuteKeyboard.build(),
+    },
+  });
+  ctx.session.postDraft.sendDate.push(ctx.message.text);
+  ctx.session.step = 'final';
+  return true;
+});
+
+router.route('final', async (ctx) => {
+  ctx.session.postDraft.sendDate.push(ctx.message.text);
+  await ctx.reply('Got it! Your message will send just in time!', { reply_markup: { remove_keyboard: true } });
+  ctx.session.step = '';
+  menuMiddleware.replyToContext(ctx, `/channels/actions:${ctx.session.chanelId}/post/`);
+  return true;
 });

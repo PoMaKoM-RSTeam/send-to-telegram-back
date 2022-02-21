@@ -1,7 +1,7 @@
 import { createBackMainMenuButtons, MenuMiddleware, MenuTemplate } from 'grammy-inline-menu/dist/source';
 import { PostModel } from '../../models/models';
 import { MyContext } from '../types/context';
-import { dateKeyboard } from './keyboards/select-date.keyboard';
+// import { dateKeyboard } from './keyboards/select-date.keyboard';
 import { scheduleMenu } from './scheduleMenu';
 
 export const postMenu = new MenuTemplate<MyContext>(() => ({
@@ -17,18 +17,18 @@ postMenu.interact('add new post', 'add', {
   },
 });
 
-postMenu.interact('keyboard', 'show', {
-  do: async (ctx) => {
-    ctx.session.step = 'key';
-    await ctx.reply('Got it! Now, send me the month!', {
-      reply_markup: {
-        one_time_keyboard: true,
-        keyboard: dateKeyboard.build(),
-      },
-    });
-    return true;
-  },
-});
+// postMenu.interact('keyboard', 'show', {
+//   do: async (ctx) => {
+//     ctx.session.step = 'key';
+//     await ctx.reply('Got it! Now, send me the day!', {
+//       reply_markup: {
+//         one_time_keyboard: true,
+//         keyboard: dateKeyboard.build(),
+//       },
+//     });
+//     return true;
+//   },
+// });
 
 // postMenu.submenu('edit post', 'edit', scheduleMenu);
 
@@ -37,28 +37,6 @@ export const deleteMenu = new MenuTemplate<MyContext>(() => ({
   parse_mode: 'Markdown',
 }));
 
-// deleteMenu.interact('delete', 'id', {
-//   do: async (ctx) => {
-//     const allPost = await PostModel.find({});
-//     const buttons = [];
-//     allPost.forEach((post) => {
-//       buttons.push(String(post._id));
-//     });
-//     ctx.session.step = 'delete';
-//     deleteMenu.choose('', buttons, {
-//       columns: 1,
-//       do: async () => {
-//         await ctx.answerCallbackQuery(`Ответ не работает...`);
-//         return '..';
-//         // await PostModel.deleteOne({ _id: ctx.callbackQuery.data });
-//       },
-//     });
-//     console.log(allPost);
-//     // await ctx.answerCallbackQuery(`${allPost.length}`);
-//     return true;
-//   },
-// });
-
 postMenu.submenu('delete post', 'delete', deleteMenu);
 
 async function name() {
@@ -66,7 +44,7 @@ async function name() {
   const buttons = [];
   allPost.forEach((post) => {
     // eslint-disable-next-line no-underscore-dangle
-    buttons.push(String(post._id));
+    buttons.push(String(post?.text?.caption?.trim().slice(24) || post?._id));
   });
   return buttons;
 }

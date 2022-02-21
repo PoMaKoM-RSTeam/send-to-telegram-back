@@ -1,6 +1,8 @@
 import { Menu } from '@grammyjs/menu';
+import { menuMiddleware } from '..';
 import { PostModel } from '../../../models/models';
 import { MyContext } from '../../types/context';
+import { dateKeyboard } from './select-date.keyboard';
 
 export async function savePostToDataBase(ctx: MyContext) {
   const post = new PostModel({
@@ -17,9 +19,23 @@ export const saveMenu = new Menu<MyContext>('processingPost')
     async (ctx) => {
       await savePostToDataBase(ctx);
       ctx.reply(`Saved!`);
+      menuMiddleware.replyToContext(ctx, `/channels/actions:${ctx.session.chanelId}/post/`);
       ctx.session.postDraft = null;
-      ctx.session.chanelId = null;
       ctx.session.step = null;
+      ctx.session.chanelId = null;
+    }
+  )
+  .text(
+    () => '📅 Send by schedule',
+    async (ctx) => {
+      await ctx.reply('Got it! Now, send me the day!', {
+        reply_markup: {
+          one_time_keyboard: true,
+          keyboard: dateKeyboard.build(),
+        },
+      });
+      ctx.session.step = 'hour';
+      return true;
     }
   )
   .text(
