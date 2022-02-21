@@ -2,7 +2,7 @@ import { Router } from '@grammyjs/router';
 import { findLast } from 'lodash';
 import { getInitialPostInstance } from '../helpers/post-helpers';
 import { menuMiddleware } from '../menus';
-import { saveMenu } from '../menus/keyboards/post-action-keyboard';
+import { saveMenu, savePostToDataBase } from '../menus/keyboards/post-action-keyboard';
 import { hourKeyboard, minuteKeyboard } from '../menus/keyboards/select-date.keyboard';
 import { MyContext } from '../types/context';
 
@@ -81,6 +81,21 @@ router.route('final', async (ctx) => {
   ctx.session.postDraft.sendDate.push(ctx.message.text);
   await ctx.reply('Got it! Your message will send just in time!', { reply_markup: { remove_keyboard: true } });
   ctx.session.step = '';
+  const postDate = new Date();
+  postDate.setFullYear(
+    Number(ctx.session.postDraft.sendDate[0].slice(6, 10)),
+    Number(ctx.session.postDraft.sendDate[0].slice(3, 5)) === 0
+      ? Number(ctx.session.postDraft.sendDate[0].slice(3, 5))
+      : Number(ctx.session.postDraft.sendDate[0].slice(3, 5)) - 1,
+    Number(ctx.session.postDraft.sendDate[0].slice(0, 2))
+  );
+  postDate.setHours(Number(ctx.session.postDraft.sendDate[1]));
+  postDate.setMinutes(Number(ctx.session.postDraft.sendDate[2]));
+  console.log(postDate);
+  ctx.session.postDraft.scheduleDateTime = postDate;
+  await savePostToDataBase(ctx);
+  ctx.session.postDraft = null;
+  ctx.session.step = 'no_step';
   menuMiddleware.replyToContext(ctx, `/channels/actions:${ctx.session.chanelId}/post/`);
   return true;
 });

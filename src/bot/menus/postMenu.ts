@@ -1,7 +1,6 @@
 import { createBackMainMenuButtons, MenuMiddleware, MenuTemplate } from 'grammy-inline-menu/dist/source';
 import { PostModel } from '../../models/models';
 import { MyContext } from '../types/context';
-// import { dateKeyboard } from './keyboards/select-date.keyboard';
 import { scheduleMenu } from './scheduleMenu';
 
 export const postMenu = new MenuTemplate<MyContext>(() => ({
@@ -17,19 +16,6 @@ postMenu.interact('add new post', 'add', {
   },
 });
 
-// postMenu.interact('keyboard', 'show', {
-//   do: async (ctx) => {
-//     ctx.session.step = 'key';
-//     await ctx.reply('Got it! Now, send me the day!', {
-//       reply_markup: {
-//         one_time_keyboard: true,
-//         keyboard: dateKeyboard.build(),
-//       },
-//     });
-//     return true;
-//   },
-// });
-
 // postMenu.submenu('edit post', 'edit', scheduleMenu);
 
 export const deleteMenu = new MenuTemplate<MyContext>(() => ({
@@ -44,7 +30,7 @@ async function name() {
   const buttons = [];
   allPost.forEach((post) => {
     // eslint-disable-next-line no-underscore-dangle
-    buttons.push(String(post?.text?.caption?.trim().slice(24) || post?._id));
+    buttons.push(String(post?.text?.caption?.trim().slice(0, 24) || post?._id));
   });
   return buttons;
 }
@@ -52,7 +38,7 @@ async function name() {
 deleteMenu.choose('', () => name(), {
   columns: 1,
   do: async (ctx, key) => {
-    await PostModel.deleteOne({ _id: key.slice(-24) });
+    await PostModel.deleteOne({ caption: key.startsWith(key.trim().slice(24)) });
     await ctx.answerCallbackQuery(`Post №${key.slice(-24)} has been deleted.`);
     return true;
   },

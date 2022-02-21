@@ -2,16 +2,16 @@ import { Keyboard } from 'grammy';
 import moment from 'moment';
 
 export const dateKeyboard = new Keyboard()
-  .text(moment().calendar(null, { sameDay: '[Today]' }))
-  .text(moment().add(1, 'days').format('dddd'))
-  .text(moment().add(2, 'days').format('dddd'))
+  .text(moment().format('DD.MM.YYYY (ddd)'))
+  .text(moment().add(1, 'days').format('DD.MM.YYYY (ddd)'))
+  .text(moment().add(2, 'days').format('DD.MM.YYYY (ddd)'))
   .row()
-  .text(moment().add(3, 'days').format('dddd'))
-  .text(moment().add(4, 'days').format('dddd'))
-  .text(moment().add(5, 'days').format('dddd'))
+  .text(moment().add(3, 'days').format('DD.MM.YYYY (ddd)'))
+  .text(moment().add(4, 'days').format('DD.MM.YYYY (ddd)'))
+  .text(moment().add(5, 'days').format('DD.MM.YYYY (ddd)'))
   .row()
-  .text(moment().add(6, 'days').format('dddd'))
-  .text(moment().add(7, 'days').format('dddd'));
+  .text(moment().add(6, 'days').format('DD.MM.YYYY (ddd)'))
+  .text(moment().add(7, 'days').format('DD.MM.YYYY (ddd)'));
 
 export const hourKeyboard = new Keyboard()
   .text('8')
@@ -25,14 +25,14 @@ export const hourKeyboard = new Keyboard()
   .text('15')
   .row()
   .text('16')
-  .text('16')
   .text('17')
   .text('18')
-  .row()
   .text('19')
+  .row()
   .text('20')
   .text('21')
-  .text('22');
+  .text('22')
+  .text('23');
 
 export const minuteKeyboard = new Keyboard()
   .text('00')

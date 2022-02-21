@@ -9,6 +9,7 @@ export async function savePostToDataBase(ctx: MyContext) {
     channelId: await ctx.session.postDraft.channel,
     text: await ctx.session.postDraft.text,
     attachments: await ctx.session.postDraft.attachments,
+    scheduleDateTime: await ctx.session.postDraft.scheduleDateTime,
   }).save();
   return post;
 }
@@ -18,11 +19,10 @@ export const saveMenu = new Menu<MyContext>('processingPost')
     () => `✅ Post is ready. Save!`,
     async (ctx) => {
       await savePostToDataBase(ctx);
-      ctx.reply(`Saved!`);
-      menuMiddleware.replyToContext(ctx, `/channels/actions:${ctx.session.chanelId}/post/`);
+      await ctx.reply(`Saved!`);
       ctx.session.postDraft = null;
-      ctx.session.step = null;
-      ctx.session.chanelId = null;
+      ctx.session.step = 'no_step';
+      await menuMiddleware.replyToContext(ctx, `/channels/actions:${ctx.session.chanelId}/`);
     }
   )
   .text(
