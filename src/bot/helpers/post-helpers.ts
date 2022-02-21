@@ -5,5 +5,6 @@ export function getInitialPostInstance(channel: number): Post {
     channel,
     attachments: [],
     text: { caption: '', caption_entities: [] },
+    sendDate: [],
   };
 }
