@@ -1,6 +1,5 @@
 import expressLoader from './express';
 import mongooseLoader from './mongoose';
-import { start, getmes } from '../bot/features/statistics';
 import botLoader from './bot';
 
 export default async ({ expressApp }) => {
@@ -8,12 +7,18 @@ export default async ({ expressApp }) => {
   await mongooseLoader();
   console.log('📅 MongoDB Initialized');
   // Express start
-  await expressLoader({ app: expressApp });
-  console.log('⏩ Express Initialized');
+  try {
+    await expressLoader({ app: expressApp });
+    console.log('⏩ Express Initialized');
+  } catch {
+    console.error('⏩ Express Down!');
+  }
   // Bot start
-  await botLoader();
-  console.log('🤖 Bot Initialized');
-  await start();
-  await getmes();
+  try {
+    await botLoader({ app: expressApp });
+    console.log('🤖 Bot Initialized');
+  } catch {
+    console.error('🤖 Bot Down!');
+  }
   console.log(`👆 All success. ${new Date(Number(new Date().getTime())).toISOString().slice(0, 19).replace('T', ' ')}`);
 };

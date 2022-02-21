@@ -4,7 +4,8 @@
   "description": "back-end post management system for Telegram messenger",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production ts-node ./src/index.ts",
+    "start": "node dist/",
+    "run": "ts-node ./src/index.ts",
     "dev": "cross-env NODE_ENV=development ts-node-dev --respawn ./src/index.ts",
     "build": "tsc",
     "prepare": "husky install",
@@ -57,6 +58,7 @@
     "@grammyjs/stateless-question": "^3.0.1",
     "@grammyjs/types": "^2.6.0",
     "@satont/grammy-file-storage": "^1.2.0",
+    "cors": "^2.8.5",
     "envalid": "^7.2.2",
     "express": "^4.17.2",
     "grammy": "^1.7.0",
@@ -76,7 +78,7 @@
   },
   "engines": {
     "npm": ">=8.0.0",
-    "node": ">=16.0.0",
+    "node": "=16.14.0",
     "engineStrict": "true"
   }
 }
