@@ -41,7 +41,7 @@ class ChannelService {
       throw ApiError.badRequest('Bot must be a channel administrator and have all permissions');
     }
     if (!channelOwner) {
-      ChannelBot.leaveChannel(channelInfo.id);
+      bot.api.leaveChat(channelInfo.id);
       throw ApiError.badRequest('Channel owner arent registered yet');
     }
     let channel = await this.findChannel(channelInfo.id);
@@ -79,7 +79,6 @@ class ChannelService {
       });
     }
     console.log('Channel created successfully');
-    // const response = { message: 'Channel created successfully' };
   }
 
   static async addChannelMember(
