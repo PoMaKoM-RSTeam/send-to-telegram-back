@@ -20,7 +20,7 @@ router.route('add_new_post', async (ctx) => {
     ctx.message.photo || ctx.message.video || ctx.message.audio || ctx.message.animation || ctx.message.document;
   if (isContainsMedia) {
     if (post.attachments.length === 10) {
-      return ctx.reply(`Error. You can't attach more than 10 attachments`);
+      return ctx.reply(ctx.i18n.t(`attachmentsError`));
     }
 
     if (ctx.message.photo) {
@@ -43,10 +43,10 @@ router.route('add_new_post', async (ctx) => {
   }
 
   if (post.attachments.length === 10) {
-    ctx.reply(`The maximum number of attachments in post has been reached`);
+    ctx.reply(ctx.i18n.t(`attachmentsMaximum`));
   }
 
-  ctx.reply(`Post updated: ${JSON.stringify(post)}`, {
+  ctx.reply(`${ctx.i18n.t('postUpdated')} ${JSON.stringify(post)}`, {
     reply_markup: saveMenu,
   });
   ctx.session.postDraft = post;
@@ -54,7 +54,7 @@ router.route('add_new_post', async (ctx) => {
 });
 
 router.route('hour', async (ctx) => {
-  await ctx.reply('Got it! Now, send me the hour!', {
+  await ctx.reply(ctx.i18n.t('postHours'), {
     reply_markup: {
       one_time_keyboard: true,
       keyboard: hourKeyboard.build(),
@@ -66,7 +66,7 @@ router.route('hour', async (ctx) => {
 });
 
 router.route('minute', async (ctx) => {
-  await ctx.reply('Got it! Now, send me the minute!', {
+  await ctx.reply(ctx.i18n.t('postMinutes'), {
     reply_markup: {
       one_time_keyboard: true,
       keyboard: minuteKeyboard.build(),
@@ -79,7 +79,9 @@ router.route('minute', async (ctx) => {
 
 router.route('final', async (ctx) => {
   ctx.session.postDraft.sendDate.push(ctx.message.text);
-  await ctx.reply('Got it! Your message will send just in time!', { reply_markup: { remove_keyboard: true } });
+  await ctx.reply(ctx.i18n.t('postTimeReady'), {
+    reply_markup: { remove_keyboard: true },
+  });
   ctx.session.step = '';
   const postDate = new Date();
   postDate.setFullYear(

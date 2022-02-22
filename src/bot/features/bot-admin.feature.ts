@@ -39,5 +39,5 @@ filteredComposer.command('setcommands', async (ctx) => {
     }
   );
 
-  return ctx.reply('Commands updated');
+  return ctx.reply(ctx.i18n.t('commandsUpdated'));
 });

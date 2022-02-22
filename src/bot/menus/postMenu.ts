@@ -11,7 +11,7 @@ export const postMenu = new MenuTemplate<MyContext>(() => ({
 postMenu.interact('add new post', 'add', {
   do: async (ctx) => {
     ctx.session.step = 'add_new_post';
-    await ctx.reply('Give me post!');
+    await ctx.reply(ctx.i18n.t('givePost'));
     return true;
   },
 });
