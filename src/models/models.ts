@@ -102,17 +102,18 @@ const roleSchema = new Schema<IRoleModel>(
 const userModel = model('User', userSchema);
 const botModel = model('Bot', botSchema);
 const channelModel = model('Channel', channelSchema);
-export const PostModel = model('Post', postSchema);
+const postModel = model('Post', postSchema);
 const chatModel = model('Chat', chatSchema);
 const messageModel = model('Message', messageSchema);
 const roleModel = model('Role', roleSchema);
 const usersChannelsRolesModel = model('UsersChannelRoles', usersChannelsRoles);
-
+// TODO: REFACTOR
+export const PostModel = postModel;
 export default {
   userModel,
   botModel,
   channelModel,
-  PostModel,
+  postModel,
   chatModel,
   messageModel,
   roleModel,

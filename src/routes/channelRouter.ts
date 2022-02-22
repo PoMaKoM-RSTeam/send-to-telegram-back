@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import ChannelController from '../controllers/channelController';
-// import UserController from '../controllers/userController';
 import authMiddleware from '../middleware/authMiddleware';
 
 const channelRouter = Router();

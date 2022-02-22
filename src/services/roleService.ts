@@ -46,6 +46,21 @@ class RoleService {
         can_delete_channel: true,
       });
     }
+    const moderatorRole = await this.findRole('name', 'moderator');
+    if (!moderatorRole) {
+      this.createRole('moderator', true, true, true, true, false, false, false, false);
+    } else {
+      await moderatorRole.updateOne({
+        can_change_info: true,
+        can_post_messages: true,
+        can_edit_messages: true,
+        can_delete_messages: true,
+        can_give_channel_access: false,
+        can_delete_channel_member: false,
+        can_edit_channel_member: false,
+        can_delete_channel: false,
+      });
+    }
   }
 }
 export default RoleService;
