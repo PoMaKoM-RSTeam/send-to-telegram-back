@@ -1,5 +1,6 @@
 import { Bot } from 'grammy';
-
+import * as path from 'path';
+import { I18n } from '@grammyjs/i18n/dist/source/i18n';
 import { botAdminComposer } from './features/bot-admin.feature';
 import { welcomeComposer } from './features/welcome.feature';
 import { handleError } from './helpers/error-handler';
@@ -13,6 +14,12 @@ import { saveMenu } from './menus/keyboards/post-action-keyboard';
 
 export const bot = new Bot<MyContext>(config.BOT_TOKEN);
 
+const i18n = new I18n({
+  defaultLanguageOnMissing: true, // implies allowMissing = true
+  directory: path.resolve(__dirname, 'locales'),
+  useSession: true,
+});
+
 // Middlewares
 if (config.isDev) {
   bot.use(updatesLogger());
@@ -22,6 +29,7 @@ bot.use(setupSession());
 bot.use(setupContext());
 bot.use(setupLogger());
 // bot.use(registerUser());
+bot.use(i18n.middleware());
 
 // Menu
 bot.use(menuMiddleware);

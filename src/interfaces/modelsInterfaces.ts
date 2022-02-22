@@ -17,6 +17,7 @@ export interface IPostModel {
   date?: string;
   text?: PostCaption;
   attachments?: Array<AttachPhoto | AttachVideo | AttachAnimation | AttachAudio | AttachDocument>;
+  scheduleDateTime?: Date;
 }
 export interface IRoleModel {
   name: string;

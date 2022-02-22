@@ -1,0 +1,12 @@
+commandsUpdated: Commands updated
+attachmentsError: Error. You can't attach more than 10 attachments
+attachmentsMaximum: The maximum number of attachments in post has been reached
+postUpdated: 'Post updated:'
+postDay: Got it! Now, send me the day!
+postHours: Got it! Now, send me the hour!
+postMinutes: Got it! Now, send me the minute!
+postTimeReady: Got it! Your message will send just in time!
+startMessage: 'This is a bot to automate posting to your channel. Use the /menu command to go to the main menu. For more information, use the /help command.'
+givePost: Give me post!
+save: Saved!
+cancel: Cancelled!

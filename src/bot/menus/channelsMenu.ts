@@ -7,8 +7,6 @@ export const channelsMenu = new MenuTemplate<MyContext>(() => ({
   parse_mode: 'Markdown',
 }));
 
-// TODO: АЛО, ЭТО ЧТО ЗА ХУЙНЯ????? REFAC!
-
 const channelsMock = [
   {
     id: -321321657778893,

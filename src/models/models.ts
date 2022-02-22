@@ -57,6 +57,7 @@ const postSchema = new Schema<IPostModel>(
     date: { type: String, required: false },
     text: { type: Object, required: false },
     attachments: { type: [postAttachment], required: false },
+    scheduleDateTime: { type: Date, required: false },
   },
   { timestamps: true }
 );

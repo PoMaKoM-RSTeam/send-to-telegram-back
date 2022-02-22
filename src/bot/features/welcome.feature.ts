@@ -13,9 +13,10 @@ filteredComposer.command('start', async (ctx) => {
   logger.info('👋 Handle start command', getMetadata(ctx));
 
   await ctx.replyWithChatAction('typing');
-  await ctx.reply(
-    'This is a bot to automate posting to your channel.\n' +
-      'Use the /menu command to go to the main menu.\n' +
-      'For more information, use the /help command.'
-  );
+  // await ctx.reply(
+  //   'This is a bot to automate posting to your channel.\n' +
+  //     'Use the /menu command to go to the main menu.\n' +
+  //     'For more information, use the /help command.'
+  // );
+  await ctx.reply(ctx.i18n.t(`startMessage`));
 });

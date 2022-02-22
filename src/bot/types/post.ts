@@ -33,4 +33,5 @@ export interface Post {
   text?: PostCaption;
   attachments?: Array<AttachPhoto | AttachVideo | AttachAnimation | AttachAudio | AttachDocument>;
   sendDate?: Array<string>;
+  scheduleDateTime?: Date;
 }
