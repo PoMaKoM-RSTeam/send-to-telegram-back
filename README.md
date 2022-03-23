@@ -9,6 +9,7 @@
 ## Table of contents
 
 - [Introduction](#introduction)
+- [Technologies](#technologies)
 - [How to run application](#how-to-run-application)
 - [Getting help](#getting-help)
 - [Contributing](#contributing)
@@ -31,6 +32,15 @@ Node.js server with database. Serves Telegram Bot + Frontend API:
 - Ability to assign roles to users (owner, administrator, editor, author).
 - Notification of new messages from users, the ability to reply.
 - Suggestions for posts (if the user does not have more than one role, he can also create a post, but it will go to moderation and, after approval and editing, can be published).
+
+## Technologies
+
+- TypeScript
+- NodeJS
+- Express
+- MongoDB
+- Telegram BOT API
+- GrammyJS
 
 [Front-End](https://github.com/PoMaKoM-RSTeam/send-to-telegram-front/blob/develop/README.md)
 
